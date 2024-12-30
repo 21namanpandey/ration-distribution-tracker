@@ -47,6 +47,11 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
+            <Link to="/complaints" className="hover:text-[#FFF4B7]">
+              Complaint
+            </Link>
+          </li>
+          <li>
             <button
               onClick={handleLogout}
               className="bg-[#F44336] hover:bg-[#FF9800] text-white px-4 py-2 rounded"

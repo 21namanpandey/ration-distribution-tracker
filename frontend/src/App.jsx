@@ -13,6 +13,7 @@ import Register from "./components/Register";
 import UserList from "./pages/UserList";
 import Home from "./pages/Home";
 import EditProfile from "./pages/EditProfile";
+import Complaints from "./pages/Complaints";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -55,6 +56,10 @@ const App = () => {
         element={isAuthenticated ? <EditProfile /> : <Navigate to="/login" />}
       />
       {/* <Route path="/edit-profile" element={<EditProfile />} /> */}
+      <Route
+        path="/complaints"
+        element={isAuthenticated ? <Complaints /> : <Navigate to="/login" />}
+      />
     </Routes>
   );
 };
