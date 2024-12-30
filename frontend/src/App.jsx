@@ -14,6 +14,7 @@ import UserList from "./pages/UserList";
 import Home from "./pages/Home";
 import EditProfile from "./pages/EditProfile";
 import Complaints from "./pages/Complaints";
+import MyComplaints from "./pages/MyComplaints";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -59,6 +60,10 @@ const App = () => {
       <Route
         path="/complaints"
         element={isAuthenticated ? <Complaints /> : <Navigate to="/login" />}
+      />
+      <Route
+        path="/my-complaints"
+        element={isAuthenticated ? <MyComplaints /> : <Navigate to="/login" />}
       />
     </Routes>
   );

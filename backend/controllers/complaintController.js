@@ -17,19 +17,21 @@ export const submitComplaint = async (req, res) => {
     });
 
     await complaint.save();
-    res.status(201).json({ message: "Complaint submitted successfully", complaint });
+    res
+      .status(201)
+      .json({ message: "Complaint submitted successfully", complaint });
   } catch (error) {
     console.error("Error submitting complaint:", error);
     res.status(500).json({ error: "Failed to submit complaint" });
   }
 };
 
-// Get Complaints for a User
+// Get Complaints for Logged-In User
 export const getComplaintsForUser = async (req, res) => {
-  const { rationCardNumber } = req.params;
+  const { id } = req.user;
 
   try {
-    const complaints = await Complaint.find({ rationCardNumber });
+    const complaints = await Complaint.find({ userId: id });
     res.status(200).json(complaints);
   } catch (error) {
     console.error("Error fetching complaints:", error);
@@ -44,15 +46,32 @@ export const updateComplaintStatus = async (req, res) => {
 
   try {
     const complaint = await Complaint.findById(id);
-    if (!complaint) return res.status(404).json({ error: "Complaint not found" });
+    if (!complaint)
+      return res.status(404).json({ error: "Complaint not found" });
 
     complaint.status = status || complaint.status;
     complaint.response = response || complaint.response;
 
     await complaint.save();
-    res.status(200).json({ message: "Complaint updated successfully", complaint });
+    res
+      .status(200)
+      .json({ message: "Complaint updated successfully", complaint });
   } catch (error) {
     console.error("Error updating complaint:", error);
     res.status(500).json({ error: "Failed to update complaint" });
+  }
+};
+
+// Delete Complaint by User
+export const deleteComplaint = async (req, res) => {
+  try {
+    const complaintId = req.params.id;
+    const deletedComplaint = await Complaint.findByIdAndDelete(complaintId);
+    if (!deletedComplaint) {
+      return res.status(404).json({ message: "Complaint not found" });
+    }
+    res.status(200).json({ message: "Complaint deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
   }
 };
