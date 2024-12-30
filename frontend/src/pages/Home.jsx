@@ -7,7 +7,7 @@ const Home = () => {
     <>
       <div className="min-h-screen bg-[#FFF4B7] flex flex-col justify-center items-center text-center py-10">
         <h1 className="text-4xl font-bold text-[#003161] mb-6">
-          Welcome to Ration Distribution Tracker App
+          Welcome to Ration Distribution Tracker
         </h1>
         <p className="text-xl text-[#003161] mb-6">
           Ensuring transparency in the Public Distribution System

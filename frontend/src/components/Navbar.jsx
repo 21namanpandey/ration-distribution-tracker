@@ -15,7 +15,7 @@ const Navbar = () => {
         {/* Logo */}
         <div className="text-2xl font-bold">
           <Link to="/" className="hover:text-[#FFF4B7]">
-            Ration Distribution Tracker App
+            Ration Distribution Tracker
           </Link>
         </div>
 
