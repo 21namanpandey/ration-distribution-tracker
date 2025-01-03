@@ -24,6 +24,7 @@ const MyComplaints = () => {
         });
 
         setComplaints(data);
+        console.log(data);
       } catch (error) {
         console.error("Error fetching complaints:", error);
         setErrorMessage("Failed to load your complaints.");
@@ -105,6 +106,9 @@ const MyComplaints = () => {
                       Date
                     </th>
                     <th className="px-4 py-2 border border-[rgb(5,5,5)] text-center w-40">
+                      Remark
+                    </th>
+                    <th className="px-4 py-2 border border-[rgb(5,5,5)] text-center w-40">
                       Action
                     </th>
                   </tr>
@@ -128,6 +132,9 @@ const MyComplaints = () => {
                       </td>
                       <td className="px-4 py-2 border border-[#006A67] text-center">
                         {new Date(complaint.createdAt).toLocaleString()}
+                      </td>
+                      <td className="px-4 py-2 border border-[#006A67] text-center">
+                        {complaint.response || "N/A"}
                       </td>
                       <td className="px-4 py-2 border border-[#006A67] text-center">
                         <button
