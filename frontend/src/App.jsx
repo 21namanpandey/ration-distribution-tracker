@@ -15,10 +15,20 @@ import Home from "./pages/Home";
 import EditProfile from "./pages/EditProfile";
 import Complaints from "./pages/Complaints";
 import MyComplaints from "./pages/MyComplaints";
+import AdminRegister from "./pages/AdminRegister";
+import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminComplaints from "./pages/AdminComplaints";
+import AdminUsers from "./pages/AdminUsers";
+import AdminUserDetail from "./pages/AdminUserDetail";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(
     localStorage.getItem("token")
+  );
+
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(
+    localStorage.getItem("adminToken")
   );
 
   useEffect(() => {
@@ -29,6 +39,15 @@ const App = () => {
       setIsAuthenticated(false);
     }
   }, [isAuthenticated]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("adminToken");
+    if (token) {
+      setIsAdminAuthenticated(true);
+    } else {
+      setIsAdminAuthenticated(false);
+    }
+  }, [isAdminAuthenticated]);
 
   return (
     <Routes>
@@ -61,10 +80,50 @@ const App = () => {
         path="/complaints"
         element={isAuthenticated ? <Complaints /> : <Navigate to="/login" />}
       />
+      <Route path="/my-complaints" element={<MyComplaints />} />
+
+      {/* Admin Routes */}
+      <Route path="/admin/register" element={<AdminRegister />} />
+      <Route path="/admin/login" element={<AdminLogin />} />
+
       <Route
-        path="/my-complaints"
-        element={isAuthenticated ? <MyComplaints /> : <Navigate to="/login" />}
+        path="/admin/dashboard"
+        element={
+          isAdminAuthenticated ? (
+            <AdminDashboard />
+          ) : (
+            <Navigate to="/admin/login" />
+          )
+        }
       />
+      <Route
+        path="/admin/complaints"
+        element={
+          isAdminAuthenticated ? (
+            <AdminComplaints />
+          ) : (
+            <Navigate to="/admin/login" />
+          )
+        }
+      />
+      <Route
+        path="/admin/users"
+        element={
+          isAdminAuthenticated ? <AdminUsers /> : <Navigate to="/admin/login" />
+        }
+      />
+      <Route
+        path="/admin/users/:userId" 
+        element={
+          isAdminAuthenticated ? (
+            <AdminUserDetail />
+          ) : (
+            <Navigate to="/admin/login" />
+          )
+        }
+      />
+
+      {/* <Route path="/admin/*" element={<Navigate to="/admin/login" />} /> */}
     </Routes>
   );
 };
